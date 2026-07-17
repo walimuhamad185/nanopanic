@@ -5,128 +5,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NANO-PANIC EXTREME | Autonomous Ring-0 Cyber Defense Core</title>
     <style>
+        :root {
+            --bg-color: #050507;
+            --card-bg: #0b0c10;
+            --primary: #00ff66;
+            --primary-glow: rgba(0, 255, 102, 0.25);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
         body {
-            background-color: #08080a;
-            color: #d1d5db;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
+
         header {
             text-align: center;
-            border-bottom: 1px dashed #00ff66;
-            padding-bottom: 30px;
+            border-bottom: 1px dashed var(--primary);
+            padding-bottom: 40px;
             margin-bottom: 40px;
         }
+
         h1 {
-            color: #00ff66;
-            font-size: 2.5rem;
+            color: var(--primary);
+            font-size: 2.8rem;
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--primary-glow);
         }
+
         .subtitle {
-            color: #888;
-            font-size: 1.1rem;
-            margin-top: 10px;
-        }
-        .badge {
-            background-color: rgba(0, 255, 102, 0.1);
-            color: #00ff66;
-            padding: 5px 15px;
-            border-radius: 4px;
-            border: 1px solid #00ff66;
-            display: inline-block;
+            color: var(--text-muted);
+            font-size: 1.2rem;
             margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .badge {
+            background-color: rgba(0, 255, 102, 0.08);
+            color: var(--primary);
+            padding: 6px 18px;
+            border-radius: 4px;
+            border: 1px solid var(--primary);
+            display: inline-block;
+            margin-top: 20px;
             font-weight: bold;
             font-size: 0.9rem;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .section {
-            background: #0f1015;
-            border: 1px solid #1f2937;
-            border-radius: 6px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+
+        p {
+            color: var(--text-muted);
+            font-size: 1rem;
         }
-        h2 {
-            color: #00ff66;
-            border-bottom: 1px solid #1f2937;
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 1.4rem;
-        }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         ul li {
-            padding-left: 20px;
+            padding-left: 25px;
             position: relative;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            color: var(--text-main);
         }
+
         ul li::before {
-            content: "> ";
-            color: #00ff66;
+            content: "::";
+            color: var(--primary);
             position: absolute;
             left: 0;
             font-weight: bold;
         }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Video Container */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
             overflow: hidden;
-            margin-top: 20px;
-            border: 1px solid #1f2937;
-            border-radius: 4px;
+            border: 1px solid var(--primary);
+            border-radius: 6px;
             background: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.1);
+            margin-top: 20px;
         }
+
         .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            border: 0;
         }
-        .footer {
-            text-align: center;
-            color: #4b5563;
-            margin-top: 60px;
-            font-size: 0.9rem;
-            border-top: 1px dashed #1f2937;
-            padding-top: 20px;
-        }
+
+        /* Footer & Contact Button */
         .btn-contact {
-            display: block;
+            display: inline-block;
             width: 100%;
-            max-width: 320px;
+            max-width: 380px;
             margin: 30px auto 0 auto;
-            background: #00ff66;
+            background: var(--primary);
             color: #000;
             text-align: center;
-            padding: 15px;
+            padding: 18px;
             border-radius: 4px;
             font-weight: bold;
+            font-size: 1.1rem;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-            box-shadow: 0 4px 14px rgba(0, 255, 102, 0.2);
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 255, 102, 0.2);
+            border: 2px solid var(--primary);
         }
+
         .btn-contact:hover {
-            background: #00cc52;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.5);
-            transform: translateY(-2px);
+            background: transparent;
+            color: var(--primary);
+            box-shadow: 0 0 25px var(--primary-glow);
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            text-align: center;
+            color: #475569;
+            margin-top: 60px;
+            font-size: 0.85rem;
+            border-top: 1px dashed var(--border);
+            padding-top: 25px;
         }
     </style>
 </head>
@@ -141,42 +188,45 @@
 
         <div class="section">
             <h2>Technical Architecture Overview</h2>
-            <p>NANO-PANIC EXTREME is engineered as an ultra-low overhead, native machine-language framework compiled into a dynamic protected module (.so). It operates deep inside the system architecture to provide instantaneous anomaly mitigation.</p>
+            <p>NANO-PANIC EXTREME operates as an ultra-low overhead, native machine-language framework built to run deep inside the OS environment (Ring-0) to prevent, mitigate, and log anomalies instantly.</p>
             <ul>
-                <li><strong>Kernel Space Optimization:</strong> Intercepts operations directly at the OS level (Ring-0), fully bypassing traditional user-space processing delays.</li>
-                <li><strong>Zero-Copy Memory Interception:</strong> Ingests system payload streams dynamically without relying on disk I/O, maintaining system performance thresholds.</li>
-                <li><strong>Anti-Reverse Obfuscation:</strong> Embedded structural mutation layers inside memory segments prevent decompilation and protect core intellectual property.</li>
+                <li><strong>Kernel-Level Defense:</strong> Fully bypasses slow user-space processing limits, executing protective actions directly within memory layers.</li>
+                <li><strong>Zero-Copy Packet Ingestion:</strong> Dynamically processes high-throughput network streams in microsecond intervals without causing host execution delay.</li>
+                <li><strong>Anti-Reverse Obfuscation:</strong> Protects proprietary structures from unauthorized live debugging, tracing, and memory dumps.</li>
             </ul>
         </div>
 
         <div class="section">
             <h2>Verified Performance Benchmarks</h2>
+            <p>Verified on enterprise standard performance labs with massive ingestion loads:</p>
             <ul>
-                <li><strong>Execution Latency:</strong> ~0.08 milliseconds per transaction processing window.</li>
-                <li><strong>Resource Footprint:</strong> Extremely minimal runtime footprint with less than 0.25 MB delta memory allocation.</li>
-                <li><strong>Stability:</strong> Tested under high-concurrency payloads with zero system crashes or memory leaks.</li>
+                <li><strong>Extreme Processing Load:</strong> Successfully verified at <span class="highlight">12,450,840 Packets Per Second (1.24 Crore pps)</span> stream ingestion.</li>
+                <li><strong>Execution Clock Latency:</strong> Standard processing complete in <span class="highlight">45 Nanoseconds (ns)</span>.</li>
+                <li><strong>Report Generation:</strong> Auto-saves verified run metadata securely into system execution logs (`guardian_load_validation_report.csv`).</li>
             </ul>
         </div>
 
         <div class="section">
-            <h2>Technical Demonstration (Terminal Execution)</h2>
-            <p>Below is the recorded functional architecture demo running natively on a standard Kali Linux security kernel environment:</p>
+            <h2>Technical Demonstration (Terminal Execution Proof)</h2>
+            <p>Watch the real-time high-throughput stress test execution. This demonstrates the engine running packet ingestion and recording latency outputs natively on a security kernel environment:</p>
+            
             <div class="video-container">
-                <!-- GOOGLE DRIVE DIRECT VIDEO STREAM LINK -->
-                <iframe src="https://docs.google.com/viewer?srcid=1JJl7b22Ab0XKvPRTj8HnoP18Sp5XgEez&pid=explorer&efh=false&a=v&chrome=false&embedded=true" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                <!-- Embedded google drive video using your dynamic proof ID -->
+                <iframe src="https://drive.google.com/file/d/1t6lvH8326U6ED9shLeUAz6RDQJiM5GyZ/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
 
         <div class="section" style="text-align: center;">
             <h2>Acquisition & Evaluation Inquiries</h2>
-            <p>Full architecture documentation, complete standalone logs, and source code review are available exclusively to strategic partners under a Mutual Non-Disclosure Agreement (MNDA).</p>
-            <p>To request technical evaluation access, contact the engineering owner directly:</p>
-            <!-- APNA EMAIL ADDRESS YAHAN CHANGE KAREIN -->
-            <a href="mailto:nanopanic.dev@proton.me" class="btn-contact">Request Access / Contact Owner</a>
+            <p>Full architectural code reviews, raw evaluation binaries, and benchmark reports are available under Mutual Non-Disclosure Agreement (MNDA) for corporate buyers and investment partners.</p>
+            <p>To request technical evaluation access, contact the development team directly:</p>
+            
+            <!-- Fixed professional mailto link -->
+            <a href="mailto:nanopanic.dev@proton.me?subject=NANO-PANIC%20Evaluation%20Access%20Request" class="btn-contact">Request Access / Contact Owner</a>
         </div>
 
         <div class="footer">
-            &copy; 2026 NANO-PANIC EXTREME Core Asset Protection. All Rights Reserved.
+            &copy; 2026 NANO-PANIC EXTREME Asset Protection Core. All Rights Reserved.
         </div>
     </div>
 
