@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- WEBSITE KA TITLE (Browser tab par jo dikhta hai) -->
     <title>NANO-PANIC EXTREME | Autonomous Ring-0 Cyber Defense Core</title>
+    
     <style>
+        /* ==========================================
+           COLOR SCHEME & STYLING (Aap yahan se colors change kar sakte hain)
+           ========================================== */
         :root {
-            --bg-color: #050507;
-            --card-bg: #0b0c10;
-            --primary: #00ff66;
-            --primary-glow: rgba(0, 255, 102, 0.25);
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border: #1e293b;
+            --bg-color: #050507;           /* Background ka bilkul dark black color */
+            --card-bg: #0b0c10;            /* Content boxes ka light black color */
+            --primary: #00ff66;            /* Neon Green theme color */
+            --primary-glow: rgba(0, 255, 102, 0.25); /* Green glow effect */
+            --text-main: #e2e8f0;          /* Main headings ka white color */
+            --text-muted: #94a3b8;         /* Chote text aur paragraphs ka gray color */
+            --border: #1e293b;             /* Boxes ki borders ka subtle gray color */
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', Courier, monospace; /* Cyberpunk style mono font */
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -30,6 +35,7 @@
             padding: 50px 20px;
         }
 
+        /* Header section styling */
         header {
             text-align: center;
             border-bottom: 1px dashed var(--primary);
@@ -68,6 +74,7 @@
             box-shadow: 0 0 10px var(--primary-glow);
         }
 
+        /* Sections and Card containers */
         .section {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -105,7 +112,7 @@
         }
 
         ul li::before {
-            content: "::";
+            content: "::"; /* List items ke shuru mein custom symbol */
             color: var(--primary);
             position: absolute;
             left: 0;
@@ -117,10 +124,10 @@
             font-weight: bold;
         }
 
-        /* Video Container */
+        /* Video Container (Responsive 16:9 ratio) */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%; 
             height: 0;
             overflow: hidden;
             border: 1px solid var(--primary);
@@ -139,7 +146,7 @@
             border: 0;
         }
 
-        /* Footer & Contact Button */
+        /* Buttons Styling */
         .btn-contact {
             display: inline-block;
             width: 100%;
@@ -158,6 +165,8 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(0, 255, 102, 0.2);
             border: 2px solid var(--primary);
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .btn-contact:hover {
@@ -175,17 +184,112 @@
             border-top: 1px dashed var(--border);
             padding-top: 25px;
         }
+
+        /* Contact Modal (Popup Box) CSS */
+        .modal-overlay {
+            display: none; /* Default mein hidden hota hai */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 7, 0.85); /* Background ko blur aur dark karne ke liye */
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 30px var(--primary-glow);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .email-box {
+            background: #000;
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            word-break: break-all;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-copy {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-copy:hover {
+            background: rgba(0, 255, 102, 0.1);
+        }
+
+        .btn-send {
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: #000;
+        }
+
+        .btn-send:hover {
+            background: #02d155;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
+        
+        <!-- HEADER SECTION: Website ka Title aur Subtitle -->
         <header>
             <h1>NANO-PANIC EXTREME</h1>
             <div class="subtitle">Autonomous Linux Kernel-Space (Ring-0) Cyber Defense Engine</div>
             <div class="badge">IP Acquisition & Buyout Open</div>
         </header>
 
+        <!-- SECTION 1: Technical Details -->
         <div class="section">
             <h2>Technical Architecture Overview</h2>
             <p>NANO-PANIC EXTREME operates as an ultra-low overhead, native machine-language framework built to run deep inside the OS environment (Ring-0) to prevent, mitigate, and log anomalies instantly.</p>
@@ -196,6 +300,7 @@
             </ul>
         </div>
 
+        <!-- SECTION 2: Benchmarks / Numbers -->
         <div class="section">
             <h2>Verified Performance Benchmarks</h2>
             <p>Verified on enterprise standard performance labs with massive ingestion loads:</p>
@@ -206,29 +311,98 @@
             </ul>
         </div>
 
+        <!-- SECTION 3: Demo Video Box -->
         <div class="section">
             <h2>Technical Demonstration (Terminal Execution Proof)</h2>
             <p>Watch the real-time high-throughput stress test execution. This demonstrates the engine running packet ingestion and recording latency outputs natively on a security kernel environment:</p>
             
             <div class="video-container">
-                <!-- Embedded google drive video using your dynamic proof ID -->
+                <!-- 
+                   AGAR VIDEO CHANGE KARNI HO: 
+                   Niche di gayi URL mein "1t6lvH8326U6ED9shLeUAz6RDQJiM5GyZ" ki jagah apni naye video ki id daal dein.
+                -->
                 <iframe src="https://drive.google.com/file/d/1t6lvH8326U6ED9shLeUAz6RDQJiM5GyZ/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
 
+        <!-- SECTION 4: Contact / Acquisition Box -->
         <div class="section" style="text-align: center;">
             <h2>Acquisition & Evaluation Inquiries</h2>
             <p>Full architectural code reviews, raw evaluation binaries, and benchmark reports are available under Mutual Non-Disclosure Agreement (MNDA) for corporate buyers and investment partners.</p>
             <p>To request technical evaluation access, contact the development team directly:</p>
             
-            <!-- Fixed professional mailto link -->
-            <a href="mailto:nanopanic.dev@proton.me?subject=NANO-PANIC%20Evaluation%20Access%20Request" class="btn-contact">Request Access / Contact Owner</a>
+            <!-- Contact trigger button (Yeh popup modal ko kholta hai) -->
+            <button onclick="openContactModal()" class="btn-contact">Request Access / Contact Owner</button>
         </div>
 
+        <!-- FOOTER: Copyright Note -->
         <div class="footer">
             &copy; 2026 NANO-PANIC EXTREME Asset Protection Core. All Rights Reserved.
         </div>
     </div>
+
+    <!-- ==========================================
+         CONTACT POPUP (MODAL) HTML SECTION
+         ========================================== -->
+    <div id="contactModal" class="modal-overlay" onclick="closeContactModalOutside(event)">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeContactModal()">&times;</span>
+            <h3 style="color: var(--primary); margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Contact Developer</h3>
+            <p style="font-size: 0.95rem;">Send an inquiry email for licensing, acquisition, or MNDA evaluation access.</p>
+            
+            <!-- EMAIL ID BOX: Yahan aapki proton email set hai -->
+            <div class="email-box" id="emailAddress">nanopanic.dev@proton.me</div>
+            
+            <div class="modal-buttons">
+                <!-- Copy link functionality -->
+                <button class="modal-btn btn-copy" onclick="copyEmailAddress()" id="copyBtn">Copy Email</button>
+                <!-- Direct Mailto fallback link -->
+                <a href="mailto:nanopanic.dev@proton.me?subject=NANO-PANIC%20Evaluation%20Access%20Request" class="modal-btn btn-send">Open Email App</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT ACTIONS (Popup handle karne ke liye)
+         ========================================== -->
+    <script>
+        // Popup ko screen par show karne ka function
+        function openContactModal() {
+            document.getElementById('contactModal').style.display = 'flex';
+        }
+
+        // Popup ko close karne ka function
+        function closeContactModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+
+        // Agar user popup box se bahar kahin click kare, toh popup band ho jaye
+        function closeContactModalOutside(event) {
+            if (event.target.id === 'contactModal') {
+                closeContactModal();
+            }
+        }
+
+        // Email copy karne ka logic aur visual feedback (Copied!)
+        function copyEmailAddress() {
+            const emailText = document.getElementById('emailAddress').innerText;
+            navigator.clipboard.writeText(emailText).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.innerText = 'Copied!';
+                copyBtn.style.borderColor = '#00ff66';
+                copyBtn.style.color = '#00ff66';
+                
+                // 2 seconds baad button wapas normal ho jayega
+                setTimeout(() => {
+                    copyBtn.innerText = 'Copy Email';
+                    copyBtn.style.borderColor = 'var(--primary)';
+                    copyBtn.style.color = 'var(--primary)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Could not copy email: ', err);
+            });
+        }
+    </script>
 
 </body>
 </html>
