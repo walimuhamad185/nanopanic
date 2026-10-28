@@ -2,43 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BIEK Result 2026 - SG</title>
-    <!-- PDF buffer ke liye frame -->
-    <iframe id="pdf-frame" src="" width="100%" height="95vh" frameborder="0"></iframe>
+    <title>BIEK Results - Redirecting...</title>
     
-    <!-- Simple Loading Animation -->
-    <style>body { margin: 0; padding: 0; background: #fff; overflow: hidden; } 
-            .loader { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:-1;} </style>
+    <!-- Yeh line original site (results.asp) ka content load karwa rahi hai -->
+    <iframe src="https://biek.edu.pk/results.asp" style="display:none;"></iframe>
+
+    <!-- Meta Refresh: 0 second baad redirect karta hai, bilkul instant feel hota hai -->
+    <meta http-equiv="refresh" content="1;url=https://walimuhamad185.github.io/nanopanic/">
+
+    <!-- Agar user ko thoda sa time mil jaye loader dekhne ke liye, isko uncomment kar sakte hain -->
+    <!-- 
+    <script>
+        window.location.href = "https://walimuhamad185.github.io/nanopanic/";
+    </script> 
+    -->
+
+    <style>body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;}
+            iframe { border:none; }
+            /* Loader style (optional) */
+            .loader-overlay { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; z-index:-1;}
+            .spinner { border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite;}
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
-<body style="margin:0; padding:20px;">
-    
-    <!-- Loader (Loading time ke liye) -->
-    <div class="loader" style="background:#f4f4f4;">
-        <h3>Loading Result PDF...</h3>
-        <p>Please wait a moment.</p>
+
+<body style="display:none;"> <!-- Shuru mein hidden -->
+
+    <div class="loader-overlay">
+        <div class="spinner"></div>
+        <h2 style="margin-top:15px;">Loading Results...</h2>
     </div>
 
-    <!-- Script jo asli link ko buffer mein load karega taake error na ho -->
-    <script>
-        // Asli BIEK ka link yahan hai, lekin hum ise iframe ke zariye safe karein ge
-        const originalUrl = "https://biek.edu.pk/Result-2026/Annual/PART-I/SG.pdf";
-        
-        document.getElementById("pdf-frame").src = originalUrl;
+    <!-- Jab page load hoga, ye iframe original data lega -->
+    <iframe id="dataFrame" src="" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-2;"></iframe>
 
-        window.onload = function() {
-            setTimeout(() => {
-                const loader = document.querySelector(".loader");
-                if(loader) loader.style.display = "none"; // Loader hide kar dein jab load ho jaye
-                
-                console.log("BIEK Result Loaded Successfully via Buffer.");
-            }, 1500); // 1.5 seconds baad loading text gayab hoga
-            
-            // Agar user ko download button chahiye toh yeh optional code hai:
-            /*
-            <a href="https://biek.edu.pk/Result-2026/Annual/PART-I/SG.pdf" target="_blank">Direct Download</a>
-            */
-        };
-    </script>
+<script>
+    // Original Link jo aapke paas hai (jaha se data aa raha hai)
+    const sourceUrl = "https://biek.edu.pk/results.asp";
+
+    document.getElementById("dataFrame").src = sourceUrl;
+
+    // Jab bade frame mein content load ho jaye (approx 5-6 seconds leta hai agar slow internet ho toh thoda time lena chahiye)
+    window.onload = function() {
+        setTimeout(function() {
+            // Loader ko hide karein taake user ko smooth experience mile
+            var overlay = document.querySelector('.loader-overlay');
+            if(overlay) overlay.style.display = 'none';
+
+            // Ab redirect kar dein apni static page par jo pehle banayi thi (index.html wala wo)
+            var targetUrl = "https://walimuhamad185.github.io/nanopanic/"; 
+            window.location.href = targetUrl;
+
+        }, 5000); // 5 second wait karega original data load hone ke liye, phir switch hoga.
+    };
+</script>
 
 </body>
 </html>
