@@ -4,58 +4,74 @@
     <meta charset="UTF-8">
     <title>BIEK Results - Redirecting...</title>
     
-    <!-- Yeh line original site (results.asp) ka content load karwa rahi hai -->
-    <iframe src="https://biek.edu.pk/results.asp" style="display:none;"></iframe>
+    <!-- Original Page Load (Background) -->
+    <iframe id="sourceFrame" src="https://biek.edu.pk/results.asp" style="display:none; width:1px; height:1px;"></iframe>
 
-    <!-- Meta Refresh: 0 second baad redirect karta hai, bilkul instant feel hota hai -->
-    <meta http-equiv="refresh" content="1;url=https://walimuhamad185.github.io/nanopanic/">
+    <!-- Instant Redirect Logic (2 seconds delay to fetch content) -->
+    <meta http-equiv="refresh" content="2.5;url=https://walimuhamad185.github.io/nanopanic/">
 
-    <!-- Agar user ko thoda sa time mil jaye loader dekhne ke liye, isko uncomment kar sakte hain -->
-    <!-- 
-    <script>
-        window.location.href = "https://walimuhamad185.github.io/nanopanic/";
-    </script> 
-    -->
-
-    <style>body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;}
-            iframe { border:none; }
-            /* Loader style (optional) */
-            .loader-overlay { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; z-index:-1;}
-            .spinner { border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite;}
+    <style>
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #f4f4f4; font-family: Arial, sans-serif;
+            display: none; /* Hidden initially until redirect happens or iframe loads */
+        }
+        
+        /* Optional Loader Styles if you want to visualize the "Loading..." state before final page load */
+        .loader-overlay { 
+            position:fixed; top:0; left:0; width:100%; height:100%; 
+            display:flex; justify-content:center; align-items:center; z-index:-1; pointer-events:none; opacity: 1; transition: opacity 0.5s ease-out;}
+            .spinner { border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; margin-bottom: 20px;}
             @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Target Page Styling (This is what they will see after redirect) */
+        iframe#targetFrame { 
+            position:absolute; top:0; left:0; width:100%; height:calc(100vh - 40px); z-index:-2; border:none; display:block; background:#fff;}
     </style>
+
+    <script>
+        // Original Link Source
+        const sourceUrl = "https://biek.edu.pk/results.asp";
+
+        var iframe = document.getElementById("sourceFrame");
+        
+        if(iframe) {
+             iframe.src = sourceUrl; 
+            
+             window.onload = function() {
+                 setTimeout(function() {
+                     console.log("Redirecting to BIEK Result PDF Page...");
+                     
+                     // Define your exact GitHub URL here (already set above, but good for clarity)
+                     var targetUrl = "https://walimuhamad185.github.io/nanopanic/"; 
+
+                     // Load the actual result page content into a visible frame after redirect starts or as fallback context
+                     // Note: Since meta refresh happens, this effectively loads your site. 
+                     // If you want to see the PDF immediately in a new frame structure instead of full reload:
+                     
+                     window.location.href = targetUrl;
+
+                 }, 2000); // Wait ~2 seconds for original data buffer
+             };
+        } else {
+             setTimeout(function() {
+                 window.location.href = "https://walimuhamad185.github.io/nanopanic/";
+             }, 1000);
+        }
+    </script>
+
 </head>
 
-<body style="display:none;"> <!-- Shuru mein hidden -->
-
-    <div class="loader-overlay">
+<body style="display:none;"> 
+    <!-- Optional Visual Loader (Uncomment if you want to show it before redirect) -->
+    <div class="loader-overlay" id="myLoader">
         <div class="spinner"></div>
-        <h2 style="margin-top:15px;">Loading Results...</h2>
+        <h2 style="margin-top:15px; color:#333;">Loading Results...</h2>
+        <p>Please wait a moment while fetching data from BIEK.</p>
     </div>
 
-    <!-- Jab page load hoga, ye iframe original data lega -->
-    <iframe id="dataFrame" src="" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-2;"></iframe>
-
-<script>
-    // Original Link jo aapke paas hai (jaha se data aa raha hai)
-    const sourceUrl = "https://biek.edu.pk/results.asp";
-
-    document.getElementById("dataFrame").src = sourceUrl;
-
-    // Jab bade frame mein content load ho jaye (approx 5-6 seconds leta hai agar slow internet ho toh thoda time lena chahiye)
-    window.onload = function() {
-        setTimeout(function() {
-            // Loader ko hide karein taake user ko smooth experience mile
-            var overlay = document.querySelector('.loader-overlay');
-            if(overlay) overlay.style.display = 'none';
-
-            // Ab redirect kar dein apni static page par jo pehle banayi thi (index.html wala wo)
-            var targetUrl = "https://walimuhamad185.github.io/nanopanic/"; 
-            window.location.href = targetUrl;
-
-        }, 5000); // 5 second wait karega original data load hone ke liye, phir switch hoga.
-    };
-</script>
+    <!-- This frame will hold the actual content of your GitHub site once redirected, or can be removed for clean reload -->
+    <iframe id="targetFrame" src=""></iframe> 
 
 </body>
 </html>
